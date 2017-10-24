@@ -1,9 +1,9 @@
 package nasty.chips.matthewweilding.sbg_stat_tracker;
 
 import android.arch.persistence.room.Room;
+
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -16,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.TextView;
+
+import com.facebook.stetho.Stetho;
 
 import nasty.chips.matthewweilding.sbg_stat_tracker.Database.AppDatabase;
 
@@ -40,9 +42,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Stetho.initializeWithDefaults(this);
 
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "database-name").build();
+                AppDatabase.class, "model_stats").allowMainThreadQueries().build();
+
+//        Faction[] factions = {new Faction(1, "Minas Tirith"), new Faction(2, "Mordor")};
+//        db.factionDAO().insertAll(factions);
+//
+//        Model[] models = {new Model(1, "Aragorn, King Elessar", 6, 3, 4, 7, 3, 3, 6, 3, 3, 3, true),
+//                new Model(2, "The Dark Lord Sauron", 9, 4 , 8, 10, 3, 3, 7, 3, 6, 0, true),
+//                new Model(3, "Warrior Of Minas Tirith", 3, 4, 3, 5, 1, 1, 3, 0, 0, 0, false),
+//                new Model(4, "Orc Warrior", 3, 5, 3, 4, 1, 1, 2, 0, 0, 0, false)};
+//        db.modelDao().insertAll(models);
+//
+//        FactionsHaveModels[] factionsHaveModels = {new FactionsHaveModels(1, 1, 1), new FactionsHaveModels(2, 2, 2),
+//                new FactionsHaveModels(3, 1, 3), new FactionsHaveModels(4, 2, 4)};
+//        db.factionHasModelsDao().insertAll(factionsHaveModels);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -126,15 +142,30 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            Fragment fragment;
+
+            switch (position){
+
+                case 0:
+                    fragment = new UnitStatsFragment();
+                    break;
+                case 1:
+                    fragment = new HeroStatsFragment();
+                    break;
+                case 2:
+                    fragment = new HeroStatsFragment();
+                    break;
+                default:
+                    fragment = new UnitStatsFragment();
+                    break;
+            }
+
+            return fragment;
         }
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            return 4;
         }
     }
 }

@@ -3,6 +3,7 @@ package nasty.chips.matthewweilding.sbg_stat_tracker.Database;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.PrimaryKey;
 
 /**
  * Created by matthew.weilding on 24/10/2017.
@@ -15,6 +16,9 @@ import android.arch.persistence.room.ForeignKey;
                 parentColumns = "id",
                 childColumns = "model_id")})
 public class ListHasModels {
+
+    @PrimaryKey
+    private int listHasModelsId;
 
     @ColumnInfo(name = "list_id")
     private int listId;

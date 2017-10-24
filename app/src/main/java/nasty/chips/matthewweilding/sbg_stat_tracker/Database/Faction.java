@@ -9,6 +9,11 @@ import android.arch.persistence.room.*;
 @Entity
 public class Faction {
 
+    public Faction(int factionId, String factionName) {
+        this.factionId = factionId;
+        this.factionName = factionName;
+    }
+
     @PrimaryKey
     private int factionId;
 

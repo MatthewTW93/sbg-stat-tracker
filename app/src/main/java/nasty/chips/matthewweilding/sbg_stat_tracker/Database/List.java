@@ -22,6 +22,9 @@ public class List {
     @ColumnInfo(name = "date_created")
     private Date dateCreated;
 
+    @ColumnInfo(name = "opponents")
+    private boolean opponents;
+
     public int getListId() {
         return listId;
     }
@@ -44,5 +47,13 @@ public class List {
 
     public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
+    }
+
+    public boolean isOpponents() {
+        return opponents;
+    }
+
+    public void setOpponents(boolean opponents) {
+        this.opponents = opponents;
     }
 }
