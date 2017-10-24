@@ -22,5 +22,19 @@ public class FactionHasModels {
     @ColumnInfo(name = "model_id")
     private int modelId;
 
+    public int getFactionId() {
+        return factionId;
+    }
 
+    public void setFactionId(int factionId) {
+        this.factionId = factionId;
+    }
+
+    public int getModelId() {
+        return modelId;
+    }
+
+    public void setModelId(int modelId) {
+        this.modelId = modelId;
+    }
 }
