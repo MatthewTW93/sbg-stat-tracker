@@ -11,7 +11,7 @@ import java.sql.Date;
  */
 
 @Entity
-public class List {
+public class ArmyList {
 
     @PrimaryKey
     private int listId;

@@ -3,13 +3,15 @@ package nasty.chips.matthewweilding.sbg_stat_tracker.Database;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
 /**
  * Created by matthew.weilding on 23/10/2017.
  */
 
-@Entity(foreignKeys = {@ForeignKey(entity = Faction.class,
+@Entity(indices = @Index(value = {"faction_id", "model_id"}),
+        foreignKeys = {@ForeignKey(entity = Faction.class,
         parentColumns = "factionId",
         childColumns = "faction_id"),
         @ForeignKey(entity = Model.class,
