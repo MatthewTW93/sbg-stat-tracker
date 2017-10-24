@@ -9,12 +9,12 @@ import android.arch.persistence.room.ForeignKey;
  */
 
 @Entity(foreignKeys = {@ForeignKey(entity = Faction.class,
-        parentColumns = "faction_id",
+        parentColumns = "id",
         childColumns = "faction_id"),
         @ForeignKey(entity = Model.class,
-        parentColumns = "model_id",
+        parentColumns = "id",
         childColumns = "model_id")})
-public class FactionHasModels {
+public class FactionsHaveModels {
 
     @ColumnInfo(name = "faction_id")
     private int factionId;
@@ -22,5 +22,19 @@ public class FactionHasModels {
     @ColumnInfo(name = "model_id")
     private int modelId;
 
+    public int getFactionId() {
+        return factionId;
+    }
 
+    public void setFactionId(int factionId) {
+        this.factionId = factionId;
+    }
+
+    public int getModelId() {
+        return modelId;
+    }
+
+    public void setModelId(int modelId) {
+        this.modelId = modelId;
+    }
 }
