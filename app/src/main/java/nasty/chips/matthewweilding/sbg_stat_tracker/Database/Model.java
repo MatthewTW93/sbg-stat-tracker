@@ -11,9 +11,10 @@ import android.arch.persistence.room.PrimaryKey;
 @Entity
 public class Model {
 
-    public Model(int modelId, String modelName, int fight, int shoot, int strength, int defence, int attacks, int wounds, int courage, int might, int will, int fate, boolean hero) {
+    public Model(int modelId, String modelName, int move, int fight, int shoot, int strength, int defence, int attacks, int wounds, int courage, int might, int will, int fate, boolean hero) {
         this.modelId = modelId;
         this.modelName = modelName;
+        this.move = move;
         this.fight = fight;
         this.shoot = shoot;
         this.strength = strength;
@@ -32,6 +33,9 @@ public class Model {
 
     @ColumnInfo(name = "model_name")
     private String modelName;
+
+    @ColumnInfo(name = "move")
+    private int move;
 
     @ColumnInfo(name = "fight")
     private int fight;
@@ -80,6 +84,14 @@ public class Model {
 
     public void setModelName(String modelName) {
         this.modelName = modelName;
+    }
+
+    public int getMove() {
+        return move;
+    }
+
+    public void setMove(int move) {
+        this.move = move;
     }
 
     public int getFight() {

@@ -17,6 +17,9 @@ public interface ModelDao {
     @Query("SELECT * FROM model")
     List<Model> getAll();
 
+    @Query("SELECT * FROM model WHERE modelId = (:modelId)")
+    Model getOneFromId(int modelId);
+
     @Query("SELECT * FROM model WHERE modelId IN (:modelIds)")
     List<Model> loadAllByIds(int[] modelIds);
 
