@@ -1,16 +1,17 @@
 package nasty.chips.matthewweilding.sbg_stat_tracker;
 
+import android.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.facebook.stetho.Stetho;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    int currentPage = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,15 +56,22 @@ public class MainActivity extends AppCompatActivity {
 //                new FactionsHaveModels(3, 1, 3), new FactionsHaveModels(4, 2, 4)};
 //        db.factionHasModelsDao().insertAll(factionsHaveModels);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        Toolbar toolbar = findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
+
+
+        SlidingUpPanelLayout s = findViewById(R.id.sliding_layout);
+        s.setAnchorPoint(0.7f);
+        s.setPanelHeight(60);
+
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = findViewById(R.id.container);
+        mViewPager = findViewById(R.id.frame_container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setCurrentItem(1);
 
     }
 
@@ -90,41 +99,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * A placeholder fragment containing a simple view.
-     */
-//    public static class PlaceholderFragment extends Fragment {
-//        /**
-//         * The fragment argument representing the section number for this
-//         * fragment.
-//         */
-//        private static final String ARG_SECTION_NUMBER = "section_number";
-//
-//        public PlaceholderFragment() {
-//        }
-//
-//        /**
-//         * Returns a new instance of this fragment for the given section
-//         * number.
-//         */
-//        public static PlaceholderFragment newInstance(int sectionNumber) {
-//            PlaceholderFragment fragment = new PlaceholderFragment();
-//            Bundle args = new Bundle();
-//            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-//            fragment.setArguments(args);
-//            return fragment;
-//        }
-//
-//        @Override
-//        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                                 Bundle savedInstanceState) {
-//            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-//            TextView textView = rootView.findViewById(R.id.section_label);
-//            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-//            return rootView;
-//        }
-//    }
-
-    /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
@@ -146,21 +120,25 @@ public class MainActivity extends AppCompatActivity {
                     fragment = new UnitStatsFragment();
                     args.putBoolean("opponent", false);
                     fragment.setArguments(args);
+                    currentPage = 0;
                     break;
                 case 1:
                     fragment = new HeroStatsFragment();
                     args.putBoolean("opponent", false);
                     fragment.setArguments(args);
+                    currentPage = 1;
                     break;
                 case 2:
                     fragment = new HeroStatsFragment();
                     args.putBoolean("opponent", true);
                     fragment.setArguments(args);
+                    currentPage = 2;
                     break;
                 default:
                     fragment = new UnitStatsFragment();
                     args.putBoolean("opponent", true);
                     fragment.setArguments(args);
+                    currentPage = 3;
                     break;
             }
 
@@ -173,4 +151,29 @@ public class MainActivity extends AppCompatActivity {
             return 4;
         }
     }
+
+    public ViewPager getmViewPager() {
+        return mViewPager;
+    }
+
+    public void setmViewPager(ViewPager mViewPager) {
+        this.mViewPager = mViewPager;
+    }
+
+    public void startSearch(View view){
+
+        // TODO: 25/10/2017 Pass the current page: currentPage
+
+
+        Bundle args = new Bundle();
+        SearchFragment fragment = new SearchFragment();
+        args.putInt("page", currentPage);
+        fragment.setArguments(args);
+
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
+        ft.replace(R.id.frame_container,  fragment);
+        ft.commit();
+    }
+
 }

@@ -14,16 +14,16 @@ import java.util.List;
 @Dao
 public interface FactionsHaveModelsDao {
 
-    @Query("SELECT * FROM FactionsHaveModels")
-    List<FactionsHaveModels> getAll();
-
-    @Query("SELECT * FROM FactionsHaveModels WHERE model_id IN (:modelIds)")
-    List<FactionsHaveModels> loadAllByIds(int[] modelIds);
-
-    @Insert
-    void insertAll(FactionsHaveModels... factionsHaveModels);
-
-    @Delete
-    void delete(FactionsHaveModels factionsHaveModels);
+//    @Query("SELECT * FROM FactionsHaveModels")
+//    List<FactionsHaveModels> getAll();
+//
+//    @Query("SELECT * FROM FactionsHaveModels WHERE model_id IN (:modelIds)")
+//    List<FactionsHaveModels> loadAllByIds(int[] modelIds);
+//
+//    @Insert
+//    void insertAll(FactionsHaveModels... factionsHaveModels);
+//
+//    @Delete
+//    void delete(FactionsHaveModels factionsHaveModels);
 
 }

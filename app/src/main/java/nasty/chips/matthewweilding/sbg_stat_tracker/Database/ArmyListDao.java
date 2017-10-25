@@ -14,14 +14,14 @@ public interface ArmyListDao {
 
     @Query("SELECT * FROM ArmyList")
     java.util.List<ArmyList> getAll();
-
-    @Query("SELECT * FROM ArmyList WHERE listId IN (:listIds)")
-    java.util.List<ArmyList> loadAllByIds(int[] listIds);
-
-    @Insert
-    void insertAll(ArmyList... lists);
-
-    @Delete
-    void delete(ArmyList list);
+//
+//    @Query("SELECT * FROM ArmyList WHERE listId IN (:listIds)")
+//    java.util.List<ArmyList> loadAllByIds(int[] listIds);
+//
+//    @Insert
+//    void insertAll(ArmyList... lists);
+//
+//    @Delete
+//    void delete(ArmyList list);
 
 }

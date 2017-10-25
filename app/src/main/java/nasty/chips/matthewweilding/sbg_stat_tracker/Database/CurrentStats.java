@@ -16,6 +16,16 @@ import android.arch.persistence.room.PrimaryKey;
         childColumns = "model_id"))
 public class CurrentStats {
 
+    public CurrentStats(int currentStatsId, int modelId, String customName, int wounds, int might, int will, int fate) {
+        this.currentStatsId = currentStatsId;
+        this.modelId = modelId;
+        this.customName = customName;
+        this.wounds = wounds;
+        this.might = might;
+        this.will = will;
+        this.fate = fate;
+    }
+
     @PrimaryKey
     private int currentStatsId;
 
