@@ -49,6 +49,11 @@ class FactionAdaptor extends RecyclerView.Adapter<FactionAdaptor.FactionViewHold
         return factions.size();
     }
 
+    public Faction getItemAtPosition(int position)
+    {
+        return factions.get(position);
+    }
+
     public int getPosition(Faction faction) {
         return factions.indexOf(faction);
     }

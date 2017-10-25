@@ -19,8 +19,4 @@ public class Globals {
                 AppDatabase.class, "model_stats").allowMainThreadQueries().build();
     }
 
-
-
-
-
 }

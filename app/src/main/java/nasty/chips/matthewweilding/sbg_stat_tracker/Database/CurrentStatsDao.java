@@ -1,20 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 package nasty.chips.matthewweilding.sbg_stat_tracker.Database;
 
 import android.arch.persistence.room.Dao;
@@ -29,18 +12,18 @@ import android.arch.persistence.room.Query;
 @Dao
 public interface CurrentStatsDao {
 
-    @Query("SELECT * FROM currentStats")
-    java.util.List<CurrentStats> getAll();
-
-    @Query("SELECT * FROM currentStats WHERE currentStatsId IN (:currentStatsId)")
-    java.util.List<CurrentStats> loadAllByIds(int[] currentStatsId);
+//    @Query("SELECT * FROM currentStats")
+//    java.util.List<CurrentStats> getAll();
+//
+//    @Query("SELECT * FROM currentStats WHERE currentStatsId IN (:currentStatsId)")
+//    java.util.List<CurrentStats> loadAllByIds(int[] currentStatsId);
 
     @Query("SELECT DISTINCT currentStatsId FROM currentStats")
-    int[] destinctModels();
+    int[] distinctModels();
 
-    @Insert
-    void insertAll(CurrentStats... currentStats);
-
-    @Delete
-    void delete(CurrentStats currentStats);
+//    @Insert
+//    void insertAll(CurrentStats... currentStats);
+//
+//    @Delete
+//    void delete(CurrentStats currentStats);
 }

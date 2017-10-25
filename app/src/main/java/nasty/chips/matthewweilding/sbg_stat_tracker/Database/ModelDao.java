@@ -17,16 +17,20 @@ public interface ModelDao {
     @Query("SELECT * FROM model")
     List<Model> getAll();
 
-    @Query("SELECT * FROM model WHERE modelId = (:modelId)")
-    Model getOneFromId(int modelId);
+//    @Query("SELECT * FROM model WHERE modelId = (:modelId)")
+//    Model getOneFromId(int modelId);
+//
+//    @Query("SELECT * FROM model WHERE modelId IN (:modelIds)")
+//    List<Model> loadAllByIds(int[] modelIds);
+//
+//    @Insert
+//    void insertAll(Model... models);
+//
+//    @Delete
+//    void delete(Model models);
 
-    @Query("SELECT * FROM model WHERE modelId IN (:modelIds)")
-    List<Model> loadAllByIds(int[] modelIds);
-
-    @Insert
-    void insertAll(Model... models);
-
-    @Delete
-    void delete(Model models);
-
+    @Query("SELECT * FROM model m "+
+            "INNER JOIN factionsHaveModels j ON m.modelId = j.model_id "+
+            "WHERE j.faction_id = (:factionId)")
+    List<Model> getFromFaction(int factionId);
 }

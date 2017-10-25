@@ -52,7 +52,7 @@ public class UnitStatsFragment extends Fragment {
 
     void setUpList(){
 
-        int[] modelIds = globals.db.currentStatsDao().destinctModels();
+        int[] modelIds = globals.db.currentStatsDao().distinctModels();
 
         models = globals.db.modelDao().loadAllByIds(modelIds);
 

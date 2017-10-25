@@ -14,7 +14,7 @@ public interface ListHasModelsDao {
 
     @Query("SELECT * FROM listHasModels")
     java.util.List<ListHasModels> getAll();
-//
+
 //    @Query("SELECT * FROM listHasModels WHERE modelId IN (:modelIds)")
 //    java.util.ArmyList<ListHasModels> loadAllByIds(int[] modelIds);
 

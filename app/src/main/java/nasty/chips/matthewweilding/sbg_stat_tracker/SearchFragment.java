@@ -12,6 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import javax.annotation.Nullable;
+
+import nasty.chips.matthewweilding.sbg_stat_tracker.Database.Faction;
+
 /**
  * Created by matthew.weilding on 25/10/2017.
  */
@@ -33,7 +37,7 @@ public class SearchFragment extends Fragment {
 
     }
 
-    void setUpSearch(){
+    void setUpSearch(@Nullable Faction currentFaction){
 
         if(faction)
         {
@@ -41,13 +45,22 @@ public class SearchFragment extends Fragment {
             StaggeredGridLayoutManager mStaggeredLayoutManager = new StaggeredGridLayoutManager(
                     orientation?4:2, StaggeredGridLayoutManager.VERTICAL);
             rv.setLayoutManager(mStaggeredLayoutManager);
-            FactionAdaptor factionAdaptor = new FactionAdaptor();
+            final FactionAdaptor factionAdaptor = new FactionAdaptor(globals.db.factionDAO().getAll());
             rv.setAdapter(factionAdaptor);
+            RecyclerViewItemClickSupport.addTo(rv).setOnItemClickListener(new RecyclerViewItemClickSupport.OnItemClickListener() {
+                @Override
+                public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                    factionAdaptor.getItemAtPosition(position);
+                    // TODO: 25/10/2017 Set up search for faction
+                    recyclerView.getAdapter().notifyItemChanged(position);
+                }
+            });
         }
         else
         {
             LinearLayoutManager llm = new LinearLayoutManager(getActivity());
             rv.setLayoutManager(llm);
+            final ModelSelectAdaptor modelSelectAdaptor = new ModelSelectAdaptor(globals.db.modelDao().getFromFaction(currentFaction.getFactionId()));
         }
 
 

@@ -14,13 +14,13 @@ public interface FactionDAO {
     @Query("SELECT * FROM faction")
     List<Faction> getAll();
 
-    @Query("SELECT * FROM faction WHERE factionId IN (:factionIds)")
-    List<Faction> loadAllByIds(int[] factionIds);
-
-    @Insert
-    void insertAll(Faction... factions);
-
-    @Delete
-    void delete(Faction factions);
+//    @Query("SELECT * FROM faction WHERE factionId IN (:factionIds)")
+//    List<Faction> loadAllByIds(int[] factionIds);
+//
+//    @Insert
+//    void insertAll(Faction... factions);
+//
+//    @Delete
+//    void delete(Faction factions);
 
 }
