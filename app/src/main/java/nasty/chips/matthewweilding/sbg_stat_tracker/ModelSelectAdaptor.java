@@ -19,7 +19,7 @@ import nasty.chips.matthewweilding.sbg_stat_tracker.Database.Model;
 public class ModelSelectAdaptor extends RecyclerView.Adapter<ModelSelectAdaptor.ModelViewHolder>{
 
     List<Model> models;
-    ArrayList<Integer> selection;
+    ArrayList<Integer> selection = new ArrayList<>();
 
     public ModelSelectAdaptor(List<Model> models) {
         this.models = models;
@@ -71,7 +71,7 @@ public class ModelSelectAdaptor extends RecyclerView.Adapter<ModelSelectAdaptor.
 
     public void removeSelected(Model model){
 
-        selection.remove(model.getModelId());
+        selection.remove((Integer) model.getModelId());
 
     }
 

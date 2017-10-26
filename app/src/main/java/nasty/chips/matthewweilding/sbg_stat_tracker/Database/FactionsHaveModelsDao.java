@@ -3,6 +3,7 @@ package nasty.chips.matthewweilding.sbg_stat_tracker.Database;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
 import java.util.List;
@@ -19,10 +20,10 @@ public interface FactionsHaveModelsDao {
 //
 //    @Query("SELECT * FROM FactionsHaveModels WHERE model_id IN (:modelIds)")
 //    List<FactionsHaveModels> loadAllByIds(int[] modelIds);
-//
-//    @Insert
-//    void insertAll(FactionsHaveModels... factionsHaveModels);
-//
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertAll(FactionsHaveModels... factionsHaveModels);
+
 //    @Delete
 //    void delete(FactionsHaveModels factionsHaveModels);
 

@@ -16,10 +16,10 @@ public interface FactionDAO {
 
 //    @Query("SELECT * FROM faction WHERE factionId IN (:factionIds)")
 //    List<Faction> loadAllByIds(int[] factionIds);
-//
-//    @Insert
-//    void insertAll(Faction... factions);
-//
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertAll(Faction... factions);
+
 //    @Delete
 //    void delete(Faction factions);
 

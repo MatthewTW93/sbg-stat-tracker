@@ -1,6 +1,6 @@
 package nasty.chips.matthewweilding.sbg_stat_tracker;
 
-import android.app.Fragment;
+import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,9 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import javax.annotation.Nullable;
 
@@ -23,27 +21,30 @@ import nasty.chips.matthewweilding.sbg_stat_tracker.Database.Model;
  * Created by matthew.weilding on 25/10/2017.
  */
 
-public class SearchFragment extends Fragment {
+public class SearchActivity extends Activity {
 
     RecyclerView rv;
     Globals globals;
     boolean faction = false;
     FactionAdaptor factionAdaptor;
     ModelSelectAdaptor modelSelectAdaptor;
+    int pageFrom = -1;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_search, container, false);
-        rv = rootView.findViewById(R.id.searchRecycler);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_search);
+        rv = findViewById(R.id.searchRecycler);
         globals = new Globals();
-        globals.setUpDb(getActivity());
+        globals.setUpDb(this);
+
+        Bundle b = getIntent().getExtras();
+        if(b != null)
+            pageFrom = b.getInt("page");
 
         Log.e("Search", "In the search");
 
         setUpSearch(null);
-
-        return rootView;
-
     }
 
     void setUpSearch(@Nullable Faction currentFaction){
@@ -71,7 +72,7 @@ public class SearchFragment extends Fragment {
 
     void setUpFactions(){
 
-        boolean orientation = (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE);
+        boolean orientation = (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE);
         StaggeredGridLayoutManager mStaggeredLayoutManager = new StaggeredGridLayoutManager(
                 orientation?4:2, StaggeredGridLayoutManager.VERTICAL);
         rv.setLayoutManager(mStaggeredLayoutManager);
@@ -92,7 +93,7 @@ public class SearchFragment extends Fragment {
 
     void setUpModels(Faction currentFaction){
 
-        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        LinearLayoutManager llm = new LinearLayoutManager(this);
         rv.setLayoutManager(llm);
         modelSelectAdaptor = new ModelSelectAdaptor(globals.db.modelDao().getFromFaction(currentFaction.getFactionId()));
         rv.setAdapter(modelSelectAdaptor);
@@ -110,6 +111,7 @@ public class SearchFragment extends Fragment {
                 {
                     modelSelectAdaptor.setSelected(model);
                 }
+                modelSelectAdaptor.notifyItemChanged(position, model);
             }
         });
     }

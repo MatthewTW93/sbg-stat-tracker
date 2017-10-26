@@ -25,7 +25,7 @@ class FactionAdaptor extends RecyclerView.Adapter<FactionAdaptor.FactionViewHold
 
     @Override
     public FactionViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_hero_stats, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_faction, parent, false);
         return new FactionAdaptor.FactionViewHolder(itemView);
     }
 

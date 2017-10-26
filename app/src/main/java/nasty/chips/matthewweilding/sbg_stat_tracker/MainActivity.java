@@ -1,17 +1,26 @@
 package nasty.chips.matthewweilding.sbg_stat_tracker;
 
 import android.app.FragmentTransaction;
+import android.arch.persistence.room.Room;
+import android.content.Intent;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.facebook.stetho.Stetho;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
+
+import nasty.chips.matthewweilding.sbg_stat_tracker.Database.DatabaseSetup.AppDatabase;
+import nasty.chips.matthewweilding.sbg_stat_tracker.Database.Faction;
+import nasty.chips.matthewweilding.sbg_stat_tracker.Database.FactionsHaveModels;
+import nasty.chips.matthewweilding.sbg_stat_tracker.Database.Model;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,27 +49,21 @@ public class MainActivity extends AppCompatActivity {
         Globals globals = new Globals();
         globals.setUpDb(getApplicationContext());
 
-//        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-//                AppDatabase.class, "model_stats").allowMainThreadQueries().build();
+        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, "model_stats").allowMainThreadQueries().build();
 
-//        Faction[] factions = {new Faction(1, "Minas Tirith"), new Faction(2, "Mordor")};
-//        db.factionDAO().insertAll(factions);
-//
-//        Model[] models = {new Model(1, "Aragorn, King Elessar", 6, 3, 4, 7, 3, 3, 6, 3, 3, 3, true),
-//                new Model(2, "The Dark Lord Sauron", 9, 4 , 8, 10, 3, 3, 7, 3, 6, 0, true),
-//                new Model(3, "Warrior Of Minas Tirith", 3, 4, 3, 5, 1, 1, 3, 0, 0, 0, false),
-//                new Model(4, "Orc Warrior", 3, 5, 3, 4, 1, 1, 2, 0, 0, 0, false)};
-//        db.modelDao().insertAll(models);
-//
-//        FactionsHaveModels[] factionsHaveModels = {new FactionsHaveModels(1, 1, 1), new FactionsHaveModels(2, 2, 2),
-//                new FactionsHaveModels(3, 1, 3), new FactionsHaveModels(4, 2, 4)};
-//        db.factionHasModelsDao().insertAll(factionsHaveModels);
+        Faction[] factions = {new Faction(1, "Minas Tirith"), new Faction(2, "Mordor")};
+        db.factionDAO().insertAll(factions);
 
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
+        Model[] models = {new Model(1, "Aragorn, King Elessar", 6, 3, 4, 7, 3, 3, 3, 6, 3, 3, 3, true),
+                new Model(2, "The Dark Lord Sauron", 9, 4 , 8, 10, 3, 3, 3, 7, 3, 6, 0, true),
+                new Model(3, "Warrior Of Minas Tirith", 3, 4, 3, 5, 1, 1, 1, 3, 0, 0, 0, false),
+                new Model(4, "Orc Warrior", 3, 5, 3, 4, 1, 1, 1, 2, 0, 0, 0, false)};
+        db.modelDao().insertAll(models);
 
+        FactionsHaveModels[] factionsHaveModels = {new FactionsHaveModels(1, 1, 1), new FactionsHaveModels(2, 2, 2),
+                new FactionsHaveModels(3, 1, 3), new FactionsHaveModels(4, 2, 4)};
+        db.factionHasModelsDao().insertAll(factionsHaveModels);
 
         SlidingUpPanelLayout s = findViewById(R.id.sliding_layout);
         s.setAnchorPoint(0.7f);
@@ -162,18 +165,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void startSearch(View view){
 
-        // TODO: 25/10/2017 Pass the current page: currentPage
+        Intent intent = new Intent(this, SearchActivity.class);
+        Bundle b = new Bundle();
+        b.putInt("page", mViewPager.getCurrentItem());
+        Log.e("PageLog", "page: "+mViewPager.getCurrentItem());
+        intent.putExtras(b);
+        startActivity(intent);
+        finish();
 
-
-        Bundle args = new Bundle();
-        SearchFragment fragment = new SearchFragment();
-        args.putInt("page", currentPage);
-        fragment.setArguments(args);
-
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
-        ft.replace(R.id.frame_container,  fragment);
-        ft.commit();
     }
 
 }
