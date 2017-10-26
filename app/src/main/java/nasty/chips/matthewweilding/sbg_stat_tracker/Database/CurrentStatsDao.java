@@ -5,6 +5,8 @@ import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
+import java.util.List;
+
 /**
  * Created by matthew.weilding on 24/10/2017.
  */
@@ -18,11 +20,18 @@ public interface CurrentStatsDao {
 //    @Query("SELECT * FROM currentStats WHERE currentStatsId IN (:currentStatsId)")
 //    java.util.List<CurrentStats> loadAllByIds(int[] currentStatsId);
 
-    @Query("SELECT DISTINCT currentStatsId FROM currentStats")
-    int[] distinctModels();
-
     @Insert
     void insertAll(CurrentStats... currentStats);
+
+    @Query("SELECT DISTINCT model_id FROM currentStats "+
+            "WHERE side = (:side)")
+    int[] distinctModels(int side);
+
+    @Query("SELECT * FROM currentStats " +
+            "INNER JOIN model m ON modelId = model_id "+
+            "WHERE side = (:side) " +
+            "AND (m.hero = 1 OR m.wounds > 1)")
+    List<CurrentStats> getHeroes(int side);
 //
 //    @Delete
 //    void delete(CurrentStats currentStats);

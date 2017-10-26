@@ -1,6 +1,7 @@
 package nasty.chips.matthewweilding.sbg_stat_tracker;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +19,10 @@ import nasty.chips.matthewweilding.sbg_stat_tracker.Database.Model;
 
 public class ModelSelectAdaptor extends RecyclerView.Adapter<ModelSelectAdaptor.ModelViewHolder>{
 
-    List<Model> models;
-    ArrayList<Integer> selection = new ArrayList<>();
+    List<ModelsInList> models;
+    //ArrayList<Integer> selection = new ArrayList<>();
 
-    public ModelSelectAdaptor(List<Model> models) {
+    public ModelSelectAdaptor(List<ModelsInList> models) {
         this.models = models;
     }
 
@@ -36,13 +37,11 @@ public class ModelSelectAdaptor extends RecyclerView.Adapter<ModelSelectAdaptor.
 
         try{
 
-            holder.modelName.setText(models.get(position).getModelName());
+            holder.modelName.setText(models.get(position).getModel().getModelName());
 
-            if(selection.contains(models.get(position).getModelId()))
-            {
-                holder.selected.setSelected(true);
-            }
+            Log.e("Holder", "Checked: "+models.get(position).isChecked());
 
+            holder.selected.setChecked(models.get(position).isChecked());
 
         }
         catch (Exception e)
@@ -57,44 +56,44 @@ public class ModelSelectAdaptor extends RecyclerView.Adapter<ModelSelectAdaptor.
         return models.size();
     }
 
-    Model getItemAtPosition(int position){
+    ModelsInList getItemAtPosition(int position){
 
         return models.get(position);
 
     }
 
-    public void setSelected(Model model){
-
-        selection.add(model.getModelId());
-
-    }
-
-    public void removeSelected(Model model){
-
-        selection.remove((Integer) model.getModelId());
-
-    }
+//    public void setSelected(ModelsInList model){
+//
+//        ;
+//
+//    }
+//
+//    public void removeSelected(ModelsInList model){
+//
+//        selection.remove((Integer) model.getModelId());
+//
+//    }
 
     public ArrayList<Model> getSelectedModels(){
 
         ArrayList<Model> selectedModels = new ArrayList<>();
 
-        for (Model model : models)
+        for (ModelsInList model : models)
         {
-            if (selection.contains(model.getModelId()))
+            if (model.isChecked())
             {
-                selectedModels.add(model);
+                selectedModels.add(model.getModel());
             }
         }
 
         return selectedModels;
     }
 
-    public boolean selected(int position) {
-
-        return selection.contains(models.get(position).getModelId());
-
-    }
+//    public boolean selected(int position) {
+//
+//        return selection.contains(models.get(position).getModelId());
+//
+//    }
 
     class ModelViewHolder extends RecyclerView.ViewHolder{
 

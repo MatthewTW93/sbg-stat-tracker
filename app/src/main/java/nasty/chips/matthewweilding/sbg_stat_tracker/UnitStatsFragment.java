@@ -36,13 +36,6 @@ public class UnitStatsFragment extends Fragment {
         globals = new Globals();
         globals.setUpDb(getActivity());
 
-// TODO: 24/10/2017 This isn't needed
-        TextView tv = new TextView(getActivity());
-        tv.setText("Unit Page: "+opponent);
-
-        LinearLayout ll = rootView.findViewById(R.id.unit_background);
-        ll.addView(tv);
-
         (rootView.findViewById(R.id.unit_background)).setBackgroundColor(opponent?Color.RED:Color.BLUE);
 
         setUpList();
@@ -52,7 +45,7 @@ public class UnitStatsFragment extends Fragment {
 
     void setUpList(){
 
-        int[] modelIds = globals.db.currentStatsDao().distinctModels();
+        int[] modelIds = globals.db.currentStatsDao().distinctModels(opponent?1:0);
 
         models = globals.db.modelDao().loadAllByIds(modelIds);
 

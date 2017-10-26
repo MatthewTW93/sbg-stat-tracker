@@ -19,11 +19,9 @@ import nasty.chips.matthewweilding.sbg_stat_tracker.Database.Model;
 public class HeroAdaptor extends RecyclerView.Adapter<HeroAdaptor.HeroViewHolder> {
 
     private List<CurrentStats> models;
-    Context context;
 
-    HeroAdaptor(List<CurrentStats> models, Context context) {
+    HeroAdaptor(List<CurrentStats> models) {
         this.models = models;
-        this.context = context;
 
     }
 
@@ -38,23 +36,12 @@ public class HeroAdaptor extends RecyclerView.Adapter<HeroAdaptor.HeroViewHolder
 
         try
         {
-            Globals globals = new Globals();
-            globals.setUpDb(context);
-
-            CurrentStats current = models.get(position);
-
-            Model model = globals.db.modelDao().getOneFromId(current.getModelId());
-
-
 
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
-
-
-
 
     }
 

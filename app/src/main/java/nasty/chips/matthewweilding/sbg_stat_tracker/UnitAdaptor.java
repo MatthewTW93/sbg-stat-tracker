@@ -38,13 +38,13 @@ class UnitAdaptor extends RecyclerView.Adapter<UnitAdaptor.UnitViewHolder> {
             Model model = models.get(position);
 
             holder.modelName.setText(model.getModelName());
-            holder.fight.setText(model.getFight());
-            holder.shoot.setText(model.getShoot());
-            holder.strength.setText(model.getStrength());
-            holder.defence.setText(model.getDefence());
-            holder.attacks.setText(model.getAttacks());
-            holder.wounds.setText(model.getWounds());
-            holder.courage.setText(model.getCourage());
+            holder.fight.setText(String.valueOf(model.getFight()));
+            holder.shoot.setText(String.valueOf(model.getShoot()));
+            holder.strength.setText(String.valueOf(model.getStrength()));
+            holder.defence.setText(String.valueOf(model.getDefence()));
+            holder.attacks.setText(String.valueOf(model.getAttacks()));
+            holder.wounds.setText(String.valueOf(model.getWounds()));
+            holder.courage.setText(String.valueOf(model.getCourage()));
 
         }
         catch (Exception e)

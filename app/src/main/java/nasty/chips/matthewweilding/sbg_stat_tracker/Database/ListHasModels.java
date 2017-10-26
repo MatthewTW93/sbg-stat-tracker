@@ -19,7 +19,7 @@ import android.arch.persistence.room.PrimaryKey;
                 childColumns = "model_id")})
 public class ListHasModels {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int listHasModelsId;
 
     @ColumnInfo(name = "list_id")

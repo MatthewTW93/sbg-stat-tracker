@@ -52,17 +52,24 @@ public class MainActivity extends AppCompatActivity {
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "model_stats").allowMainThreadQueries().build();
 
-        Faction[] factions = {new Faction(1, "Minas Tirith"), new Faction(2, "Mordor")};
+        Faction[] factions = {new Faction(1, "Minas Tirith"), new Faction(2, "Mordor"), new Faction(3,"Wanderers In The Wild"),
+                new Faction(4,"The Survivors Of Laketown"), new Faction(5,"Isengard"), new Faction(6, "Hobbits Of The Shire"),
+                new Faction(7, "The Kingdom Of Rohan"), new Faction(8, "The Fiefdoms")};
         db.factionDAO().insertAll(factions);
 
-        Model[] models = {new Model(1, "Aragorn, King Elessar", 6, 3, 4, 7, 3, 3, 3, 6, 3, 3, 3, true),
-                new Model(2, "The Dark Lord Sauron", 9, 4 , 8, 10, 3, 3, 3, 7, 3, 6, 0, true),
-                new Model(3, "Warrior Of Minas Tirith", 3, 4, 3, 5, 1, 1, 1, 3, 0, 0, 0, false),
-                new Model(4, "Orc Warrior", 3, 5, 3, 4, 1, 1, 1, 2, 0, 0, 0, false)};
+        Model[] models = {new Model(1, "Aragorn, King Elessar", 6, 6, 3, 4, 7, 3, 3, 6, 3, 3, 3, true),
+                new Model(2, "The Dark Lord Sauron", 6,9, 4 , 8, 10, 3, 3, 7, 3, 6, 0, true),
+                new Model(3, "Warrior Of Minas Tirith", 6,3, 4, 3, 5, 1, 1, 3, 0, 0, 0, false),
+                new Model(4, "Orc Warrior", 6,3, 5, 3, 4, 1, 1, 2, 0, 0, 0, false),
+                new Model(5, "Knight Of Minas Tirith", 6, 3, 4,3,5,1,1,3,0,0,0,false),
+                new Model(6, "Ranger Of Gondor",6,3,3,3,4,1,1,3,0,0,0,false),
+                new Model(7, "Cave Troll", 6, 6, 5, 6,6,3,3,3,0,0,0,false)};
         db.modelDao().insertAll(models);
 
         FactionsHaveModels[] factionsHaveModels = {new FactionsHaveModels(1, 1, 1), new FactionsHaveModels(2, 2, 2),
-                new FactionsHaveModels(3, 1, 3), new FactionsHaveModels(4, 2, 4)};
+                new FactionsHaveModels(3, 1, 3), new FactionsHaveModels(4, 2, 4),
+                new FactionsHaveModels(5,1,5), new FactionsHaveModels(6, 1,6),
+                new FactionsHaveModels(7,2,7)};
         db.factionHasModelsDao().insertAll(factionsHaveModels);
 
         SlidingUpPanelLayout s = findViewById(R.id.sliding_layout);

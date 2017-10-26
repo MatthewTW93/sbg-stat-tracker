@@ -34,4 +34,11 @@ public interface ModelDao {
             "INNER JOIN factionsHaveModels j ON m.modelId = j.model_id "+
             "WHERE j.faction_id = (:factionId)")
     List<Model> getFromFaction(int factionId);
+
+
+    @Query("SELECT * FROM model m "+
+            "INNER JOIN factionsHaveModels j ON m.modelId = j.model_id "+
+            "WHERE (j.faction_id = (:factionId))"+
+            "AND (m.hero = 1 OR m.wounds > 1)")
+    List<Model> getHeroesFromFaction(int factionId);
 }

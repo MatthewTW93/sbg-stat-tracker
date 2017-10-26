@@ -16,7 +16,7 @@ import android.arch.persistence.room.PrimaryKey;
         childColumns = "model_id"))
 public class CurrentStats {
 
-    public CurrentStats(int currentStatsId, int modelId, String customName, int wounds, int might, int will, int fate) {
+    public CurrentStats(int currentStatsId, int modelId, String customName, int wounds, int might, int will, int fate, int side) {
         this.currentStatsId = currentStatsId;
         this.modelId = modelId;
         this.customName = customName;
@@ -24,9 +24,10 @@ public class CurrentStats {
         this.might = might;
         this.will = will;
         this.fate = fate;
+        this.side = side;
     }
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int currentStatsId;
 
     @ColumnInfo(name = "model_id")
@@ -46,6 +47,9 @@ public class CurrentStats {
 
     @ColumnInfo(name = "fate")
     private int fate;
+
+    @ColumnInfo(name = "side")
+    private int side;
 
     public int getCurrentStatsId() {
         return currentStatsId;
@@ -101,5 +105,13 @@ public class CurrentStats {
 
     public void setFate(int fate) {
         this.fate = fate;
+    }
+
+    public int getSide() {
+        return side;
+    }
+
+    public void setSide(int side) {
+        this.side = side;
     }
 }

@@ -13,7 +13,7 @@ import java.sql.Date;
 @Entity
 public class ArmyList {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int listId;
 
     @ColumnInfo(name = "list_name")

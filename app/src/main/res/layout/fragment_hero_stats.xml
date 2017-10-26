@@ -4,4 +4,11 @@
     android:layout_height="match_parent"
     android:id="@+id/hero_background">
 
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/HeroRecycler">
+
+    </android.support.v7.widget.RecyclerView>
+
 </LinearLayout>
