@@ -3,6 +3,7 @@ package nasty.chips.matthewweilding.sbg_stat_tracker.Database;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
 import java.util.List;
@@ -20,14 +21,14 @@ public interface CurrentStatsDao {
 //    @Query("SELECT * FROM currentStats WHERE currentStatsId IN (:currentStatsId)")
 //    java.util.List<CurrentStats> loadAllByIds(int[] currentStatsId);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(CurrentStats... currentStats);
 
     @Query("SELECT DISTINCT model_id FROM currentStats "+
             "WHERE side = (:side)")
     int[] distinctModels(int side);
 
-    @Query("SELECT * FROM currentStats " +
+    @Query("SELECT c.* FROM currentStats c " +
             "INNER JOIN model m ON modelId = model_id "+
             "WHERE side = (:side) " +
             "AND (m.hero = 1 OR m.wounds > 1)")

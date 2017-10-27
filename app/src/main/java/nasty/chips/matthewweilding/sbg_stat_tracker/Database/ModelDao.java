@@ -41,4 +41,8 @@ public interface ModelDao {
             "WHERE (j.faction_id = (:factionId))"+
             "AND (m.hero = 1 OR m.wounds > 1)")
     List<Model> getHeroesFromFaction(int factionId);
+
+    @Query("SELECT model_name FROM model " +
+            "WHERE modelId = (:modelId)")
+    String getName(int modelId);
 }

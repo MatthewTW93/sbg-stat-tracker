@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -38,12 +39,7 @@ public class HeroStatsFragment extends Fragment {
         opponent = getArguments().getBoolean("opponent");
         rv = rootView.findViewById(R.id.HeroRecycler);
         globals = new Globals();
-
-        TextView tv = new TextView(getActivity());
-        tv.setText("Hero Page: "+opponent);
-
-        LinearLayout ll = rootView.findViewById(R.id.hero_background);
-        ll.addView(tv);
+        globals.setUpDb(getActivity());
 
         (rootView.findViewById(R.id.hero_background)).setBackgroundColor(opponent?Color.RED:Color.BLUE);
 
@@ -59,7 +55,7 @@ public class HeroStatsFragment extends Fragment {
 
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(llm);
-        HeroAdaptor unitAdaptor = new HeroAdaptor(models);
+        HeroAdaptor unitAdaptor = new HeroAdaptor(models, globals);
         rv.setAdapter(unitAdaptor);
 
         DefaultItemAnimator animator = new DefaultItemAnimator() {
@@ -70,5 +66,6 @@ public class HeroStatsFragment extends Fragment {
         };
 
         rv.setItemAnimator(animator);
+
     }
 }

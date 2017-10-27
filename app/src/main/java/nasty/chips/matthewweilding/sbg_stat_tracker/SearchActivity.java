@@ -186,7 +186,7 @@ public class SearchActivity extends Activity {
 
         for ( Model model : modelSelectAdaptor.getSelectedModels() )
         {
-            newStats[counter] = new CurrentStats(0, model.getModelId(), "", model.getWounds(), model.getMight(), model.getWill(), model.getFate(), side);
+            newStats[counter] = new CurrentStats(model.getModelId(), "", model.getWounds(), model.getMight(), model.getWill(), model.getFate(), side);
             counter++;
         }
 

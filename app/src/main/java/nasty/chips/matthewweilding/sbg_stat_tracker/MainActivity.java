@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
     int currentPage = 0;
+    public Globals globals;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Stetho.initializeWithDefaults(this);
 
-        Globals globals = new Globals();
+        globals = new Globals();
         globals.setUpDb(getApplicationContext());
 
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
