@@ -1,8 +1,8 @@
 package nasty.chips.matthewweilding.sbg_stat_tracker;
 
-import android.app.FragmentTransaction;
 import android.arch.persistence.room.Room;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.Fragment;
@@ -10,11 +10,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.facebook.stetho.Stetho;
+import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import nasty.chips.matthewweilding.sbg_stat_tracker.Database.DatabaseSetup.AppDatabase;
@@ -77,36 +78,115 @@ public class MainActivity extends AppCompatActivity {
         s.setAnchorPoint(0.7f);
         s.setPanelHeight(60);
 
+
+        setUpViewPager();
+
+    }
+
+    void setUpViewPager(){
+
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        // Set up the ViewPager with the sections adapter.
         mViewPager = findViewById(R.id.frame_container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setCurrentItem(1);
 
     }
 
+//
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    public void clearSide(View view) {
+
+        new MaterialStyledDialog.Builder(this)
+                .setTitle("Remove Current Models")
+                .setDescription("Are you sure you want to delete these stats?")
+                .setPositiveText("Remove")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                    deleteItems();
+
+                                }
+                })
+                .setNegativeText("Cancel")
+                .show();
+
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    public void deleteItems(){
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        Log.e("Current Page", "Current Page: "+mViewPager.getCurrentItem());
+
+        mViewPager.getCurrentItem();
+
+        if (mViewPager.getCurrentItem() <= 1)
+        {
+            globals.db.currentStatsDao().deleteSide(0);
+        }
+        else if (mViewPager.getCurrentItem() >= 2)
+        {
+            globals.db.currentStatsDao().deleteSide(1);
         }
 
-        return super.onOptionsItemSelected(item);
+        setUpViewPager();
+
+    }
+
+    public void loadList(View view) {
+
+        new MaterialStyledDialog.Builder(this)
+                .setTitle("Load List")
+                .setDescription("Choose A list To Load")
+                .setPositiveText("Remove")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                    }
+                })
+                .setNegativeText("Cancel")
+                .show();
+
+
+    }
+
+    public void saveList(View view) {
+        
+        new MaterialStyledDialog.Builder(this)
+                .setTitle("Save List")
+                .setDescription("Are you sure you want to delete these stats?")
+                .setPositiveText("Remove")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                    }
+                })
+                .setNegativeText("Cancel")
+                .show();
+
     }
 
     /**
@@ -125,31 +205,29 @@ public class MainActivity extends AppCompatActivity {
             Fragment fragment;
             Bundle args = new Bundle();
 
+            currentPage = position;
+
             switch (position){
 
                 case 0:
                     fragment = new UnitStatsFragment();
                     args.putBoolean("opponent", false);
                     fragment.setArguments(args);
-                    currentPage = 0;
                     break;
                 case 1:
                     fragment = new HeroStatsFragment();
                     args.putBoolean("opponent", false);
                     fragment.setArguments(args);
-                    currentPage = 1;
                     break;
                 case 2:
                     fragment = new HeroStatsFragment();
                     args.putBoolean("opponent", true);
                     fragment.setArguments(args);
-                    currentPage = 2;
                     break;
                 default:
                     fragment = new UnitStatsFragment();
                     args.putBoolean("opponent", true);
                     fragment.setArguments(args);
-                    currentPage = 3;
                     break;
             }
 

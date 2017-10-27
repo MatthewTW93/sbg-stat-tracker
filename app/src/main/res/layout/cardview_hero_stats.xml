@@ -96,28 +96,28 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="+"
+                    android:text="-"
                     android:id="@+id/mightDown"
                     android:layout_weight="1"/>
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="+"
+                    android:text="-"
                     android:id="@+id/willDown"
                     android:layout_weight="1"/>
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="+"
+                    android:text="-"
                     android:id="@+id/fateDown"
                     android:layout_weight="1"/>
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="+"
+                    android:text="-"
                     android:id="@+id/woundsDown"
                     android:layout_weight="1"/>
 

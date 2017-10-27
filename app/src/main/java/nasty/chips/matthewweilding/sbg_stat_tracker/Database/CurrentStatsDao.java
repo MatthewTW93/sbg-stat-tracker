@@ -33,6 +33,10 @@ public interface CurrentStatsDao {
             "WHERE side = (:side) " +
             "AND (m.hero = 1 OR m.wounds > 1)")
     List<CurrentStats> getHeroes(int side);
+
+    @Query("DELETE FROM currentstats " +
+            "WHERE side = (:side)")
+    void deleteSide(int side);
 //
 //    @Delete
 //    void delete(CurrentStats currentStats);

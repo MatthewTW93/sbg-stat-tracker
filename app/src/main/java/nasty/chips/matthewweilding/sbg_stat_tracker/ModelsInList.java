@@ -4,22 +4,24 @@ import nasty.chips.matthewweilding.sbg_stat_tracker.Database.Model;
 
 /**
  * Created by matthew.weilding on 26/10/2017.
+ *
+ * ModelsInList is used to store a Model and it's selected status for the search activity
  */
 
 public class ModelsInList {
 
-    boolean checked = false;
-    Model model;
+    private boolean checked = false;
+    private Model model;
 
-    public ModelsInList(Model model) {
+    ModelsInList(Model model) {
         this.model = model;
     }
 
-    public boolean isChecked() {
+    boolean isChecked() {
         return checked;
     }
 
-    public void setChecked(boolean checked) {
+    void setChecked(boolean checked) {
         this.checked = checked;
     }
 

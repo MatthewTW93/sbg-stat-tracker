@@ -46,21 +46,24 @@
             android:layout_height="50dp"
             android:text="clear"
             style="?android:attr/buttonBarButtonStyle"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:onClick="clearSide"/>
 
         <Button
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:text="load"
             style="?android:attr/buttonBarButtonStyle"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:onClick="loadList"/>
 
         <Button
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:text="save"
             style="?android:attr/buttonBarButtonStyle"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:onClick="saveList"/>
 
     </LinearLayout>
 
